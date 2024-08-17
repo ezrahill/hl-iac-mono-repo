@@ -1,0 +1,49 @@
+name: Build Templates
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packer/**'
+  workflow_dispatch:
+
+env:
+  PROXMOX_NODE: ${{ secrets.PROXMOX_NODE }}
+  PROXMOX_HOSTNAME: ${{ secrets.PROXMOX_HOSTNAME }}
+  PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
+  PROXMOX_PASSWORD: ${{ secrets.PROXMOX_PASSWORD }}
+  PROXMOX_IP: ${{ secrets.PROXMOX_IP }}
+  PACKER_USER": ${{ secrets.PACKER_USER }}
+  PACKER_PASSWORD": ${{ secrets.PACKER_PASSWORD }}
+
+jobs:
+  run-script:
+    runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ./packer/debian/12-bookworm
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+
+      - name: Configure Packer Variables Values
+        run: |
+          echo "proxmox_ip = \"${PROXMOX_IP}\"" > ../../values.auto.pkrvars.hcl
+          echo "proxmox_user = \"${PROXMOX_USER}\"" >> ../../values.auto.pkrvars.hcl
+          echo "proxmox_password = \"${PROXMOX_PASSWORD}\"" >> ../../values.auto.pkrvars.hcl
+          echo "proxmox_node = \"${PROXMOX_NODE}\"" >> ../../values.auto.pkrvars.hcl
+          echo "network_prefix = \"${HL_NETWORK_PREFIX}\"" >> ../../values.auto.pkrvars.hcl
+          echo "ssh_username = \"${PACKER_USER}\"" >> ../../values.auto.pkrvars.hcl
+          echo "ssh_password = \"${PACKER_PASSWORD}\"" >> ../../values.auto.pkrvars.hcl
+
+      - name: Run Packer init
+        run: |
+          echo "Running Packer init"
+          packer init .
+
+      - name: Run Debian 12 Bookworm build
+        run: |
+          echo "Running Debian 12 Bookworm build"
+          ./build.sh

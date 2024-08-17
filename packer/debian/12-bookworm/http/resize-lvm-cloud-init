@@ -1,0 +1,29 @@
+#!/bin/bash
+# Variables (edit these to match your setup)
+DISK="/dev/sda"
+VG_NAME="debian-vg"
+LV_NAME="root"
+PART_NUM="3"
+
+# 1. Create a new partition on the specified disk
+echo "Creating a new partition on $DISK..."
+echo -e "n\np\n${PART_NUM}\n\n\nt\n${PART_NUM}\n8e\nw" | fdisk $DISK
+
+# 2. Create a physical volume (PV) on the new partition
+NEW_PART="${DISK}${PART_NUM}"
+echo "Creating a physical volume on ${NEW_PART}..."
+pvcreate ${NEW_PART}
+
+# 3. Add the new physical volume to the existing volume group
+echo "Adding ${NEW_PART} to the volume group ${VG_NAME}..."
+vgextend ${VG_NAME} ${NEW_PART}
+
+# 4. Extend the logical volume to use the new space
+echo "Extending the logical volume ${LV_NAME} to use the new space..."
+lvextend -l +100%FREE /dev/${VG_NAME}/${LV_NAME}
+
+# 5. Resize the filesystem on the logical volume
+echo "Resizing the filesystem on /dev/${VG_NAME}/${LV_NAME}..."
+resize2fs /dev/${VG_NAME}/${LV_NAME}
+
+echo "LVM extension complete."
