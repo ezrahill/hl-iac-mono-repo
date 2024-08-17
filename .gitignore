@@ -1,0 +1,12 @@
+.DS_STORE
+.terraform/
+*.tfstate*
+*.tfvars
+secrets.yaml
+password*
+secret*
+
+.venv
+config.py
+
+*.pkrvars.hcl
