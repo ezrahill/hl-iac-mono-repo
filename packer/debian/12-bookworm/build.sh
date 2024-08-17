@@ -6,7 +6,6 @@ ISO_URL="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/$ISO_FILE"
 VERSION=$(echo "$ISO_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 PROXMOX_HOST="192.168.21.105"
 VM_ID="9110"
-PACKER_LOG=1 # Set to 1 to enable debugging
 
 # Step 1: Download the QCOW2 file if it doesn't already exist
 if [ ! -f "$ISO_FILE" ]; then
@@ -58,8 +57,6 @@ if [ ! -z "$VM_EXISTS" ]; then
 else
   echo "VM $VM_ID does not exist, skipping deletion."
 fi
-
-pwd
 
 # Step 5: Run Packer with the fetched checksum, raw file name, and other variables
 packer build -var "iso_checksum=$ISO_CHECKSUM" -var "iso_file=$ISO_FILE" -var "iso_version=$VERSION" -var "vm_id=$VM_ID" -var-file ../../values.auto.pkrvars.hcl .
