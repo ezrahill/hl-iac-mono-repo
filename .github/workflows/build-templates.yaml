@@ -10,12 +10,11 @@ on:
 
 env:
   PROXMOX_NODE: ${{ secrets.PROXMOX_NODE }}
-  PROXMOX_HOSTNAME: ${{ secrets.PROXMOX_HOSTNAME }}
   PROXMOX_USER: ${{ secrets.PROXMOX_USER }}
   PROXMOX_PASSWORD: ${{ secrets.PROXMOX_PASSWORD }}
   PROXMOX_IP: ${{ secrets.PROXMOX_IP }}
-  PACKER_USER": ${{ secrets.PACKER_USER }}
-  PACKER_PASSWORD": ${{ secrets.PACKER_PASSWORD }}
+  PACKER_SSH_USER: ${{ secrets.PACKER_SSH_USER }}
+  PACKER_SSH_PASSWORD: ${{ secrets.PACKER_SSH_PASSWORD }}
 
 jobs:
   run-script:
@@ -30,13 +29,14 @@ jobs:
 
       - name: Configure Packer Variables Values
         run: |
-          echo "proxmox_ip = \"${PROXMOX_IP}\"" > ../../values.auto.pkrvars.hcl
-          echo "proxmox_user = \"${PROXMOX_USER}\"" >> ../../values.auto.pkrvars.hcl
-          echo "proxmox_password = \"${PROXMOX_PASSWORD}\"" >> ../../values.auto.pkrvars.hcl
-          echo "proxmox_node = \"${PROXMOX_NODE}\"" >> ../../values.auto.pkrvars.hcl
-          echo "network_prefix = \"${HL_NETWORK_PREFIX}\"" >> ../../values.auto.pkrvars.hcl
-          echo "ssh_username = \"${PACKER_USER}\"" >> ../../values.auto.pkrvars.hcl
-          echo "ssh_password = \"${PACKER_PASSWORD}\"" >> ../../values.auto.pkrvars.hcl
+          cat <<EOF > ../../values.auto.pkrvars.hcl
+          ssh_username = "${PACKER_SSH_USER}"
+          ssh_password = "${PACKER_SSH_PASSWORD}"
+          proxmox_ip = "${PROXMOX_IP}"
+          proxmox_user = "${PROXMOX_USER}"
+          proxmox_password = "${PROXMOX_PASSWORD}"
+          proxmox_node = "${PROXMOX_NODE}"
+          EOF
 
       - name: Run Packer init
         run: |
