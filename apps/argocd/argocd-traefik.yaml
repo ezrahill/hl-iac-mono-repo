@@ -21,4 +21,18 @@ spec:
           port: 80
           scheme: h2c
   tls:
-    certResolver: default
+    secretName: argocd-tls-secret
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-cert
+  namespace: argocd
+spec:
+  secretName: argocd-tls-secret
+  issuerRef:
+    name: ssl-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - argocd.lab.hill.home
