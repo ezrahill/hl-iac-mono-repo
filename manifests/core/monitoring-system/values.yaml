@@ -35,7 +35,7 @@ kube-prometheus-stack:
             - channel: '#kubernetes-alerts'
               send_resolved: true
     ## Optionally specify extra environment variables to add to alertmanager container
-    extraEnv: []
+    extraEnv:
       - name: SLACK_API_URL
         valueFrom:
           secretKeyRef:
