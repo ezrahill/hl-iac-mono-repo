@@ -22,7 +22,9 @@ kube-prometheus-stack:
     config:
       global:
         resolve_timeout: 5m
-        slack_api_url: "$(SLACK_API_URL)"
+        slack_api_url:
+          name: slack-webhook-secret
+          key: slack_api_url
       route:
         group_by:
           - job
@@ -54,9 +56,9 @@ kube-prometheus-stack:
                   {{ end }}
                 {{ end }}
     ## Optionally specify extra environment variables to add to alertmanager container
-    extraEnv:
-      - name: SLACK_API_URL
-        valueFrom:
-          secretKeyRef:
-            name: slack-webhook-secret
-            key: slack_api_url
+    # extraEnv:
+    #   - name: SLACK_API_URL
+    #     valueFrom:
+    #       secretKeyRef:
+    #         name: slack-webhook-secret
+    #         key: slack_api_url
