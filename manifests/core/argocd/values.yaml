@@ -4,14 +4,18 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+      controller.diff.server.side: true
     cm:
       resource.ignoreResourceUpdatesEnabled: true
+      resource.customizations.ignoreResourceUpdates.all: |
+        jsonPointers:
+          - /status
       admin.enabled: true
   server:
     ingress:
       enabled: true
   dex:
-    enabled: true
+    enabled: false
 argocd-apps:
   applicationsets:
     root:
