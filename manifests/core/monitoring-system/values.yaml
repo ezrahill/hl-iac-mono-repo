@@ -25,16 +25,20 @@ kube-prometheus-stack:
         slack_api_url: $(SLACK_API_URL)
       route:
         group_by:
-          - namespace
+          - job
         group_wait: 30s
         group_interval: 5m
         repeat_interval: 12h
         receiver: 'slack'
         routes:
-          - receiver: 'slack'
-            matchers:
-              - alertname: Watchdog
+          - match:
+              alertname: DeadMansSwitch
+            receiver: 'null'
+          - match:
+            receiver: 'slack'
+            continue: true
       receivers:
+        - name: 'null'
         - name: slack
           slack_configs:
             - channel: '#kubernetes-alerts'
