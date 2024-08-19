@@ -4,17 +4,21 @@ argo-cd:
   configs:
     params:
       server.insecure: true
+    cm:
+      admin.enabled: true
   server:
     ingress:
       enabled: true
+  dex:
+    enabled: true
 argocd-apps:
   applicationsets:
     root:
       namespace: argocd
       generators:
         - git:
-            repoURL: https://github.com/ezrahill/hl-iac-mono-repo.git
-            revision: main
+            repoURL: &repoURL https://github.com/ezrahill/hl-iac-mono-repo.git
+            revision: &revision main
             directories:
               - path: manifests/core/*
       template:
