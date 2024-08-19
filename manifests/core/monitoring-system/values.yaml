@@ -8,16 +8,16 @@ kube-prometheus-stack:
         type: loki
         url: http://loki.loki:3100
   prometheus:
-  prometheusSpec:
-    serviceMonitorSelectorNilUsesHelmValues: false
-    serviceMonitorSelector: {}
-    serviceMonitorNamespaceSelector: {}
-    ruleSelector:
-        matchExpressions:
-          - key: prometheus
-            operator: In
-            values:
-              - example-rules
+    prometheusSpec:
+      serviceMonitorSelectorNilUsesHelmValues: false
+      serviceMonitorSelector: {}
+      serviceMonitorNamespaceSelector: {}
+      ruleSelector:
+          matchExpressions:
+            - key: prometheus
+              operator: In
+              values:
+                - example-rules
   alertmanager:
     config:
       global:
