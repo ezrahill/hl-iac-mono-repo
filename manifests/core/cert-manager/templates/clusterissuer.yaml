@@ -9,7 +9,13 @@ spec:
       name: letsencrypt-prod
     solvers:
     - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-api-token
-            key: api-token
+        route53:
+          region: eu-west-2
+          accessKeyID:
+            secretKeyRef:
+              name: aws-credentials
+              key: aws_access_key_id
+          secretAccessKey:
+            secretKeyRef:
+              name: aws-credentials
+              key: aws_secret_access_key
