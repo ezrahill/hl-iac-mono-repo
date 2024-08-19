@@ -1,6 +1,6 @@
 argo-cd:
   global:
-    domain: argocd.lab.hill.home
+    domain: argocd.thehackshop.com
   configs:
     params:
       server.insecure: true
@@ -14,6 +14,9 @@ argo-cd:
   server:
     ingress:
       enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      tls: true
   dex:
     enabled: false
 argocd-apps:
