@@ -17,6 +17,18 @@ argo-cd:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       tls: true
+    metrics: &metrics
+      enabled: true
+      serviceMonitor:
+        enabled: true
+  dex:
+    enabled: false
+  controller:
+    metrics: *metrics
+  repoServer:
+    metrics: *metrics
+  redis:
+    metrics: *metrics
   dex:
     enabled: false
 argocd-apps:
