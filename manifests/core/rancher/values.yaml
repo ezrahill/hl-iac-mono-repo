@@ -1,0 +1,9 @@
+hostname: &hostname rancher.thehackshop.com
+replicas: 1
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls: true
+  hosts:
+    - *hostname
