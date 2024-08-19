@@ -34,3 +34,10 @@ kube-prometheus-stack:
           slack_configs:
             - channel: '#kubernetes-alerts'
               send_resolved: true
+    ## Optionally specify extra environment variables to add to alertmanager container
+    extraEnv: []
+      - name: SLACK_API_URL
+        valueFrom:
+          secretKeyRef:
+            name: slack-webhook-secret
+            key: slack_api_url
