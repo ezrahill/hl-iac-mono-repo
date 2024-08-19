@@ -5,6 +5,7 @@ argo-cd:
     params:
       server.insecure: true
     cm:
+      resource.ignoreResourceUpdatesEnabled: true
       admin.enabled: true
   server:
     ingress:
