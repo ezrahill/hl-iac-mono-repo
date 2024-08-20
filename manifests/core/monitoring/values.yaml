@@ -55,7 +55,10 @@ grafana:
       - grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls: true
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - *host
 
 kubeApiServer:
   enabled: true
