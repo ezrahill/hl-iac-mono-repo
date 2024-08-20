@@ -53,7 +53,7 @@ grafana:
     host: &host grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls:
+    tls: true
       - secretName: grafana-tls
         hosts:
           - *host
