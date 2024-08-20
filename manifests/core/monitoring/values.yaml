@@ -50,13 +50,11 @@ grafana:
     passwordKey: admin-password
   ingress:
     enabled: true
-    host: &host grafana.thehackshop.com
+    hosts:
+      - grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     tls: true
-      - secretName: grafana-tls
-        hosts:
-          - *host
   service:
     - name: https
       port: 443
