@@ -50,15 +50,12 @@ grafana:
     passwordKey: admin-password
   ingress:
     enabled: true
+    ingressClassName: traefik
     hosts:
       - grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     tls: true
-  service:
-    ports:
-      - name: https
-        port: 443
 
 kubeApiServer:
   enabled: true
