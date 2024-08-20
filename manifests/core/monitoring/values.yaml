@@ -42,9 +42,6 @@ grafana:
   forceDeployDashboards: false
   defaultDashboardsEnabled: true
   defaultDashboardsTimezone: utc
-  service:
-    portName: https
-    port: 443
   serviceMonitor:
     enabled: true
   admin:
@@ -55,12 +52,12 @@ grafana:
     enabled: true
     hosts:
       - &host grafana.thehackshop.com
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls:
-      - secretName: grafana-tls
-        hosts:
-          - *host
+    # annotations:
+    #   cert-manager.io/cluster-issuer: letsencrypt-prod
+    # tls:
+    #   - secretName: grafana-tls
+    #     hosts:
+    #       - *host
 
 kubeApiServer:
   enabled: true
