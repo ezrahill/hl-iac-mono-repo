@@ -50,11 +50,13 @@ grafana:
     passwordKey: admin-password
   ingress:
     enabled: true
-    hosts:
-      - host: grafana.thehackshop.com
+    host: &host grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    tls: true
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - *host
 
 kubeApiServer:
   enabled: true
