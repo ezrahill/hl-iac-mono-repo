@@ -52,7 +52,7 @@ grafana:
     enabled: true
     ingressClassName: traefik
     hosts:
-      - grafana.thehackshop.com
+      - &host grafana.thehackshop.com
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     tls:
