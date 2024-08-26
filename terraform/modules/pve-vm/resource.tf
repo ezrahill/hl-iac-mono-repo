@@ -54,6 +54,7 @@ resource "proxmox_vm_qemu" "ths_vm" {
       sshkeys,           # Ignore changes to SSH keys
       network,           # Ignore changes to network attributes
       bootdisk,          # Ignore changes to bootdisk
+      desc,              # Ignore changes to description
     ]
   }
 }

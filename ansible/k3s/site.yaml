@@ -1,0 +1,48 @@
+---
+# - name: Download K3s binary
+#   hosts: localhost
+#   gather_facts: false
+#   roles:
+#     - role: mgmt_prep
+#       become: true
+
+- name: Prepare K3s Nodes
+  hosts: all_nodes
+  gather_facts: true
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: k3s_prep
+      become: true
+
+- name: Setup K3s Servers
+  hosts: servers
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: k3s_server
+      become: true
+
+- name: Setup K3s Agents
+  hosts: agents
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: k3s_agent
+      become: true
+
+- name: Configure K3s Cluster
+  hosts: servers
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: k3s_cluster
+      become: true
+
+- name: Setup Remote Management
+  hosts: servers
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: mgmt_host
+
+- name: Bootstrap the K3s Cluster
+  hosts: localhost
+  environment: "{{ proxy_env | default({}) }}"
+  roles:
+    - role: bootstrap

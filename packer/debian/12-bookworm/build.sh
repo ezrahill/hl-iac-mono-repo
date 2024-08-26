@@ -4,7 +4,6 @@
 ISO_FILE="debian-12.6.0-amd64-netinst.iso"
 ISO_URL="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/$ISO_FILE"
 VERSION=$(echo "$ISO_FILE" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-PROXMOX_HOST="192.168.21.105"
 VM_ID="9110"
 
 # Step 1: Download the QCOW2 file if it doesn't already exist
@@ -34,21 +33,21 @@ fi
 echo "Checksum fetched: $ISO_CHECKSUM"
 
 # Step 3: Upload the ISO file to the Proxmox server if it doesn't already exist
-if ssh "root@$PROXMOX_HOST" [ -f "/var/lib/vz/template/iso/$ISO_FILE" ]; then
+if ssh "root@$PROXMOX_IP" [ -f "/var/lib/vz/template/iso/$ISO_FILE" ]; then
   echo "$ISO_FILE already exists on the Proxmox server. Skipping upload."
 else
   echo "Uploading $ISO_FILE to Proxmox server..."
-  scp ./$ISO_FILE root@$PROXMOX_HOST:/var/lib/vz/template/iso/
+  scp ./$ISO_FILE root@$PROXMOX_IP:/var/lib/vz/template/iso/
 fi
 
 # Step 4: Check if the VM exists on Proxmox and delete it if it does
 echo "Checking if VM $VM_ID exists on Proxmox..."
 
-VM_EXISTS=$(ssh root@$PROXMOX_HOST "qm list | grep -w $VM_ID")
+VM_EXISTS=$(ssh root@$PROXMOX_IP "qm list | grep -w $VM_ID")
 
 if [ ! -z "$VM_EXISTS" ]; then
   echo "VM $VM_ID exists. Deleting it..."
-  ssh root@$PROXMOX_HOST "qm stop $VM_ID && qm destroy $VM_ID --purge --skiplock"
+  ssh root@$PROXMOX_IP "qm stop $VM_ID && qm destroy $VM_ID --purge --skiplock"
   if [ $? -ne 0 ]; then
     echo "Failed to delete VM $VM_ID."
     exit 1

@@ -10,3 +10,7 @@ secret*
 config.py
 
 *.pkrvars.hcl
+
+.env
+hosts.ini
+all.yaml
