@@ -13,6 +13,7 @@ rook-ceph-cluster:
     dashboard:
       enabled: true
       ssl: false
+      type: LoadBalancer
     logCollector:
       enabled: false
     removeOSDsIfOutAndSafeToRemove: true
