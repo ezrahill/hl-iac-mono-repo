@@ -52,7 +52,7 @@ display_time $stage_start_time
 # STAGE 5: RUN ANSIBLE PLAYBOOK FOR K3S SETUP
 echo "STAGE 5: RUNNING ANSIBLE PLAYBOOK FOR K3S SETUP"
 stage_start_time=$(date +%s)
-ansible-playbook site.yaml -i inventory/k3s-cluster/hosts.ini -vvv
+ansible-playbook site.yaml -i inventory/k3s-cluster/hosts.ini
 display_time $stage_start_time
 
 # STAGE 6: DISPLAY CREDENTIALS

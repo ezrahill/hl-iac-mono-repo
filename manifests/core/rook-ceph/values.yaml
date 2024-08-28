@@ -10,6 +10,11 @@ rook-ceph-cluster:
       count: 3
     mgr:
       count: 2
+      modules:
+        - name: rook
+          enabled: true
+        - name: pg_autoscaler
+          enabled: true
     dashboard:
       enabled: true
       ssl: false
