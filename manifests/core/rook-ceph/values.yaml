@@ -11,6 +11,7 @@ rook-ceph-cluster:
     mgr:
       count: 2
     dashboard:
+      enabled: true
       ssl: false
     logCollector:
       enabled: false
