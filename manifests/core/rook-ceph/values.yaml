@@ -1,6 +1,8 @@
 rook-ceph:
   monitoring:
     enabled: true
+  enableDiscoveryDaemon: true
+  discoveryDeamonInterval: 60m
 rook-ceph-cluster:
   monitoring:
     enabled: true
