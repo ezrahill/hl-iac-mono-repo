@@ -6,10 +6,13 @@ openspeedtest:
       - host: speedtest.thehackshop.com
         paths:
           - path: /
-            pathType:   ImplementationSpecific
+            pathType: ImplementationSpecific
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-staging
     tls:
       - secretName: speedtest-tls
         hosts:
           - speedtest.thehackshop.com
+  service:
+    type: ClusterIP
+    port: 3000
