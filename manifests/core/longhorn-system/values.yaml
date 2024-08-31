@@ -1,4 +1,13 @@
 longhorn:
+  ingress:
+    enabled: true
+    host: longhorn.thehackshop.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-staging
+    tls: true
+  metrics:
+    ServiceMonitor:
+      enabled: true
   defaultSettings:
     allowEmptyDiskSelectorVolume: true
     # backupTarget: s3://backupbucket@us-east-1/backupstore
