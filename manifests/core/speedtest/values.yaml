@@ -10,10 +10,7 @@ openspeedtest:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-staging
       kubernetes.io/ingress.class: traefik
-      traefik.ingress.kubernetes.io/frontend-entry-points: http
-      traefik.ingress.kubernetes.io/buffering: |
-        maxrequestbodybytes: 31457280
-        memrequestbodybytes: 62914560
+      traefik.ingress.kubernetes.io/router.middlewares: speedtest-limit@kubernetescrd
     tls:
       - secretName: speedtest-tls
         hosts:
