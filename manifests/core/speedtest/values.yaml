@@ -1,4 +1,4 @@
-speedtest:
+openspeedtest:
   replicaCount: 2
   ingress:
     enabled: true
