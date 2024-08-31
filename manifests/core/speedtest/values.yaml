@@ -9,6 +9,7 @@ openspeedtest:
             pathType: ImplementationSpecific
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-staging
+      traefik.ingress.kubernetes.io/proxy-body-size: 10240m
     tls:
       - secretName: speedtest-tls
         hosts:
