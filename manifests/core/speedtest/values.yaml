@@ -1,0 +1,12 @@
+speedtest:
+  replicaCount: 2
+  ingress:
+    enabled: true
+    hosts:
+      - host: speedtest.thehackshop.com
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-staging
+    tls:
+      - secretName: speedtest-tls
+        hosts:
+          - speedtest.thehackshop.com
