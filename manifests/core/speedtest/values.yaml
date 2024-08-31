@@ -4,6 +4,9 @@ openspeedtest:
     enabled: true
     hosts:
       - host: speedtest.thehackshop.com
+        paths:
+          - path: /
+            pathType:   ImplementationSpecific
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-staging
     tls:
