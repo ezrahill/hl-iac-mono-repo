@@ -6,7 +6,7 @@ build {
       "echo 'Installing Cloud-init...'",
       "export DEBIAN_FRONTEND=noninteractive",
       "apt-get update",
-      "apt-get install -y qemu-guest-agent screenfetch inxi vim htop",
+      "apt-get install -y qemu-guest-agent screenfetch inxi vim htop parted curl",
       "systemctl start qemu-guest-agent",
       "apt-get install -y cloud-init",
       "cloud-init clean",

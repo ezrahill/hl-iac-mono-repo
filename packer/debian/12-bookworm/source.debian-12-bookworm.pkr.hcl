@@ -27,7 +27,7 @@ source "proxmox-iso" "debian-cloud-init" {
 
   disks {
     type         = "scsi"
-    storage_pool = "local-zfs"
+    storage_pool = "internal_zpool_rZ"
     disk_size    = "${var.disk_size}"
     ssd          = true
     discard      = true
@@ -40,7 +40,7 @@ source "proxmox-iso" "debian-cloud-init" {
   ssh_timeout  = "20m"
 
   cloud_init              = true
-  cloud_init_storage_pool = "local-zfs"
+  cloud_init_storage_pool = "internal_zpool_rZ"
 
   http_directory = "http"
   boot_wait      = "10s"
