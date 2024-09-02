@@ -1,0 +1,20 @@
+openspeedtest:
+  replicaCount: 2
+  # ingress:
+  #   enabled: true
+  #   hosts:
+  #     - host: speedtest.thehackshop.com
+  #       paths:
+  #         - path: /
+  #           pathType: ImplementationSpecific
+  #   annotations:
+  #     cert-manager.io/cluster-issuer: letsencrypt-staging
+  #     kubernetes.io/ingress.class: traefik
+  #     traefik.ingress.kubernetes.io/router.middlewares: speedtest-limit@kubernetescrd
+  #   tls:
+  #     - secretName: speedtest-tls
+  #       hosts:
+  #         - speedtest.thehackshop.com
+  # service:
+  #   type:
+  #   port: 3000
