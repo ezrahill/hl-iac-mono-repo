@@ -17,4 +17,4 @@ openspeedtest:
           - speedtest.thehackshop.com
   service:
     type: ClusterIP
-    port: 3000
+    port: 3001
