@@ -2,5 +2,5 @@ loki-stack:
   loki:
     serviceMonitor:
       enabled: true
-    analyitics:
+    analytics:
       reporting_enabled: false
