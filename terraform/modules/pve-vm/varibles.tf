@@ -52,3 +52,34 @@ variable "vm_tags" {
   type        = string
   default     = ""
 }
+
+variable "additional_disks" {
+  description = "A list of additional VirtIO disks to add to the VM"
+  type = list(object({
+    storage = string
+    size    = string
+    discard = bool
+    cache   = string
+  }))
+  default = []
+}
+
+variable "vm_cpu_cores" {
+  description = "Number of CPU cores for the VM"
+  type        = number
+  default     = 2
+
+}
+
+variable "vm_cpu_sockets" {
+  description = "Number of CPU sockets for the VM"
+  type        = number
+  default     = 1
+
+}
+
+variable "vm_memory" {
+  description = "Amount of memory for the VM"
+  type        = number
+  default     = 4096
+}

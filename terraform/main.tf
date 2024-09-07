@@ -19,3 +19,14 @@ module "k3s-cluster" {
   pm_host        = var.pm_host
   ssh_key        = var.ssh_key
 }
+
+module "ai-host" {
+  source = "./deployments/ai-host"
+
+  providers = {
+    proxmox = proxmox
+  }
+  network_prefix = var.network_prefix
+  pm_host        = var.pm_host
+  ssh_key        = var.ssh_key
+}

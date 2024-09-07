@@ -3,15 +3,16 @@ resource "proxmox_vm_qemu" "ths_vm" {
 
   agent       = 1
   vmid        = var.vmid + each.key
-  name        = each.value
+  name        = local.check_single_vm ? var.vm_name : each.value
   target_node = var.pm_host
 
   clone      = "debian-12.6.0-template"
   full_clone = "true"
   os_type    = "cloud-init"
 
-  cores  = 2
-  memory = 4096
+  cores   = var.vm_cpu_cores
+  sockets = var.vm_cpu_sockets
+  memory  = var.vm_memory
 
   bootdisk = "scsi0"
   scsihw   = "virtio-scsi-pci"
@@ -20,19 +21,37 @@ resource "proxmox_vm_qemu" "ths_vm" {
     scsi {
       scsi0 {
         disk {
-          storage = "local-zfs"
-          size    = "40G"
+          storage    = "internal_zpool_rZ"
+          size       = "40G"
+          discard    = true
+          emulatessd = true
         }
       }
     }
     ide {
       ide0 {
         cloudinit {
-          storage = "local-zfs"
+          storage = "internal_zpool_rZ"
+        }
+      }
+    }
+    dynamic "virtio" {
+      for_each = var.additional_disks
+      content {
+        virtio0 {
+
+
+          disk {
+            storage = virtio.value.storage
+            size    = virtio.value.size
+            discard = virtio.value.discard
+            cache   = virtio.value.cache
+          }
         }
       }
     }
   }
+
 
   network {
     model   = "virtio"
